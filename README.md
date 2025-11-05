@@ -13,7 +13,22 @@ O projeto foi desenvolvido e testado no **Visual Studio Code (VS Code)**, com es
 | **Integrante 2** | Nicolas Felipe Oliveira Portugal – RA: 24518984-2 |
 | **Integrante 3** | Tagore Nataniel de Lara – RA: 25363236-2 |
 
----
 
-## 📂 Estrutura do Repositório
+💻 Requisitos
+
+Visual Studio Code (com as extensões das linguagens instaladas)
+
+Compilador GCC (para C)
+
+Python 3.x
+
+Java JDK 17+
+
+🧠 Observações
+
+Cada pasta contém seus próprios scripts e arquivos de teste.
+
+Utilize o terminal integrado do VS Code para compilar e executar os programas.
+
+Todos os códigos foram testados em ambiente Windows, mas também podem ser executados em Linux ou macOS com os compiladores corretos instalados.
 
