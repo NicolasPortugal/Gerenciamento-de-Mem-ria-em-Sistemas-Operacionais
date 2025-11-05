@@ -15,7 +15,7 @@ O projeto foi desenvolvido e testado no **Visual Studio Code (VS Code)**, com es
 | **Integrante 4** | Andryus Lucas da Silva Milano – RA: 24214428-2 |
 | **Integrante 5** | Guilherme Keskoski Dionisio – RA: 24033144-2 |
 | **Integrante 6** | Jonathan de Lima Bellato – RA: 24001310-2 |
-| **Integrante 7** | Tagore Nataniel de Lara – RA: 25363236-2 |
+| **Integrante 7** | João Vitor Pereira – RA: 23298780-2 |
 
 ---
 
