@@ -17,9 +17,9 @@ O projeto foi desenvolvido e testado no **Visual Studio Code (VS Code)**, com es
 
 ## 💻 Requisitos
 
-Visual Studio Code (com as extensões das linguagens instaladas)
-Compilador GCC (para C)
-Python 3.x
+Visual Studio Code (com as extensões das linguagens instaladas) - 
+Compilador GCC (para C) - 
+Python 3.x - 
 Java JDK 17+
 
 ---
@@ -27,6 +27,8 @@ Java JDK 17+
 ## 🧠 Observações
 
 Cada pasta contém seus próprios scripts e arquivos de teste.
+
 Utilize o terminal integrado do VS Code para compilar e executar os programas.
+
 Todos os códigos foram testados em ambiente Windows, mas também podem ser executados em Linux ou macOS com os compiladores corretos instalados.
 
