@@ -1,4 +1,4 @@
-# 🧩 Projeto Multilíngue – C, Python e Java
+# 🧩 Trabalho de gerenciamento de memória – C, Python e Java
 
 Repositório criado para armazenar os códigos desenvolvidos em **C**, **Python** e **Java**.  
 O projeto foi desenvolvido e testado no **Visual Studio Code (VS Code)**, com estrutura organizada em pastas.
