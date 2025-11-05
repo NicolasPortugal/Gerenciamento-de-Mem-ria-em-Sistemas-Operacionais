@@ -7,8 +7,6 @@ O projeto foi desenvolvido e testado no **Visual Studio Code (VS Code)**, com es
 
 ## 📘 Informações da Equipe
 
-| Título do Projeto | Atividade de Extensão – Dev + Git |
-|--------------------|-----------------------------------|
 | **Integrante 1** | João Victor Ventura – RA: 24250756-2 |
 | **Integrante 2** | Nicolas Felipe Oliveira Portugal – RA: 24518984-2 |
 | **Integrante 3** | Tagore Nataniel de Lara – RA: 25363236-2 |
