@@ -31,11 +31,11 @@ public static void main(String[] args) {
     }
 
     // Converte a string de entrada em um array de inteiros
-    String[] parts = line.split("\\s+");
-    int[] pages = new int[parts.length];
+    String[] parts = line.split("\\s+"); //divide em pedaços separando por espaços em branco
+    int[] pages = new int[parts.length]; //Cria um vetor de inteiros com o mesmo tamanho de parts
     for (int i = 0; i < parts.length; i++) {
         try {
-            pages[i] = Integer.parseInt(parts[i]);
+            pages[i] = Integer.parseInt(parts[i]); //Converte a string parts[i] em um número inteiro (int) e armazena em pages[i]
         } catch (NumberFormatException e) {
             System.out.println("Erro: Entrada inválida '" + parts[i] + "'. Use apenas números inteiros.");
             sc.close();

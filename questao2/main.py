@@ -1,39 +1,60 @@
-import gc       # Módulo para acessar e controlar o coletor de lixo
-import sys      # Módulo para verificar a contagem de referência
+# Lista de dicionários representando as partições fixas da memória
+particoes = [
+    {'tamanho': 100, 'livre': True,  'processo': None, 'frag_int': 0},
+    {'tamanho': 150, 'livre': True,  'processo': None, 'frag_int': 0},
+    {'tamanho': 200, 'livre': True,  'processo': None, 'frag_int': 0},
+    {'tamanho': 250, 'livre': True,  'processo': None, 'frag_int': 0},
+    {'tamanho': 300, 'livre': True,  'processo': None, 'frag_int': 0}
+]
 
-# 1. Classe Objeto simulando uso intensivo de memória
-class Objeto:
-    def __init__(self, nome):
-        self.nome = nome
-        self.dados = [0] * 10**6  # Simula uso de memória
-        print(f'Objeto {self.nome} criado')    # Notifica criação
-    def __del__(self):
-        print(f'Objeto {self.nome} destruído') # Notifica destruição
+# Função para alocar um processo usando a estratégia First-Fit
+def alocar_processo(nome, tamanho):
+    for particao in particoes:  # Percorre as partições em ordem
+        # Testa se a partição está livre e se o processo cabe nela
+        if particao['livre'] and tamanho <= particao['tamanho']:
+            particao['livre'] = False            # Marca a partição como ocupada
+            particao['processo'] = nome          # Associa o processo à partição
+            particao['frag_int'] = particao['tamanho'] - tamanho  # Calcula o desperdício (fragmentação interna)
+            return f"Processo {nome} alocado na partição de {particao['tamanho']} unidades. Fragmentação interna: {particao['frag_int']}" 
+    # Se não encontrou partição adequada, retorna uma mensagem de erro
+    return f"Não há partição disponível para o processo {nome} (tamanho {tamanho})"
 
-# ---------------- CENÁRIO 1: Destruição automática por contagem de referências -------------
-obj_a = Objeto('A')                       # Cria o objeto
-print("Contagem de referências de obj_a (inicial):", sys.getrefcount(obj_a))  # Conta referências
-obj_a = None                              # Remove a referência
-# Objeto destruído automaticamente (contagem zera)
+# Função para liberar o processo (liberar a partição que ele ocupa)
+def liberar_processo(nome):
+    for particao in particoes:
+        if particao['processo'] == nome:  # Procura qual partição está com o processo
+            particao['livre'] = True      # Libera a partição
+            particao['processo'] = None   # Remove referência ao processo
+            particao['frag_int'] = 0      # Zera a fragmentação interna
+            return f"Processo {nome} liberado."
+    # Caso não encontre o processo
+    return f"Processo {nome} não encontrado."
 
-# ---------------- CENÁRIO 2: Referências circulares ----------------------
-obj1 = Objeto('B')
-obj2 = Objeto('C')
-obj1.amigo = obj2       # obj1 referencia obj2
-obj2.amigo = obj1       # obj2 referencia obj1 -> ciclo
-print("Contagem de referências: obj1:", sys.getrefcount(obj1), "obj2:", sys.getrefcount(obj2))
-del obj1                # Remove referência forte a obj1 (mas obj2 ainda referencia obj1)
-del obj2                # Remove referência forte a obj2 (mas ambos ainda se referenciam)
-# Objetos não são destruídos ainda -- somente o coletor geracional pode remover
-print("Forçando coleta de lixo...")
-gc.collect()            # Força a coleta, coletor remove ciclo e destrói os objetos
+# Função que mostra o estado atual da memória
+def exibir_memoria():
+    estado = []
+    for i, p in enumerate(particoes):
+        # Verifica se a partição está livre ou ocupada, e por qual processo
+        if p['livre']:
+            status = 'LIVRE'
+        else:
+            status = f"OCUPADO ({p['processo']})"
+        # Monta a string descritiva desta partição
+        estado.append(f"Partição {i+1} - Tamanho: {p['tamanho']} - {status} - Fragmentação interna: {p['frag_int']}")
+    return '\n'.join(estado)
 
-# ---------------- CENÁRIO 3: Auto-referência ----------------------------
-obj_x = Objeto('D')
-obj_x.eu_mesmo = obj_x  # Auto-referência
-print("Contagem de referências obj_x:", sys.getrefcount(obj_x))
-del obj_x               # Remove referência forte
-gc.collect()            # Força a coleta
+# Função para somar toda a fragmentação interna presente
+def fragmentacao_interna_total():
+    return sum(p['frag_int'] for p in particoes)
 
-# --------------- Estatísticas do Garbage Collector -----------------------
-print("Estatísticas do garbage collector:", gc.get_stats()[0])
+# Bloco de teste do código:
+print(alocar_processo('P1', 90))       # Aloca P1
+print(alocar_processo('P2', 140))      # Aloca P2
+print(alocar_processo('P3', 180))      # Aloca P3
+print(liberar_processo('P2'))          # Libera P2
+print(alocar_processo('P4', 100))      # Tenta alocar P4 onde P2 estava
+print(alocar_processo('P5', 350))      # Tenta alocar P5 (muito grande, deverá dar erro)
+print(exibir_memoria())                # Mostra o estado completo da memória
+print(f"Fragmentação interna total: {fragmentacao_interna_total()}")  # Mostra desperdício total atual
+
+
